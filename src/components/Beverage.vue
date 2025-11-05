@@ -1,5 +1,4 @@
 <template>
-
   <Mug>
     <Cold v-if="isIced" />
     <Hot v-else />
