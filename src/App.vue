@@ -85,26 +85,31 @@
     />
     <button @click="saveBeverage">🍺 Make Beverage</button>
   </div>
-  <div v-if ="beverageStore.savedBeverages.length > 0">
-    <h3>Saved Beverages</h3>
-    <ul>
-      <li>
-        <template v-for = "bev in beverageStore.savedBeverages" :key="bev.name">
-        <label>
-          <input 
-          type="radio" 
-          name="savedBeverage"
-          :value="bev.name"
-          v-model="selectedBeverage"
-          @change="beverageStore.showBeverage(selectedBeverage)"
-          />
-          {{ bev.name }}
-        </label>
-        </template>
-      </li>
-    </ul>
+  <div id="beverage-container" style="margin-top: 20px">
+    <button @click="clearBeverages">Clear Beverages</button>
+    <div v-if ="beverageStore.savedBeverages.length > 0">
+      <h3>Saved Beverages</h3>
+      <ul>
+        <li>
+          <template v-for = "bev in beverageStore.savedBeverages" :key="bev.name">
+          <label>
+            <input 
+            type="radio" 
+            name="savedBeverage"
+            :value="bev.name"
+            v-model="selectedBeverage"
+            @change="beverageStore.showBeverage(selectedBeverage)"
+            />
+            {{ bev.name }}
+          </label>
+          </template>
+        </li>
+      </ul>
+    </div>
+      <div v-else>
+    <h3>No Saved Beverages</h3>
   </div>
-  <div id="beverage-container" style="margin-top: 20px"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -117,9 +122,13 @@ const selectedBeverage = ref("");
 
 function saveBeverage() {
   beverageStore.makeBeverage(beverageName.value);
-  alert(`Beverage "${beverageName.value}" created!`);
   beverageName.value = "";
 }
+function clearBeverages() {
+  beverageStore.clearBeverages();
+  selectedBeverage.value = "";
+}
+
 </script>
 
 <style lang="scss">

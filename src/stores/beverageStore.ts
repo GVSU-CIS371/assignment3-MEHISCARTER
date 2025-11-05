@@ -12,10 +12,10 @@ export const useBeverageStore = defineStore("BeverageStore", {
     bases,
     currentBase: bases[0],
     
-    creamers: creamers,
+    creamers,
     currentCreamer: creamers[0],
     
-    syrups: syrups,
+    syrups,
     currentSyrup: syrups[0],
 
     savedBeverages: [] as {
@@ -33,6 +33,11 @@ export const useBeverageStore = defineStore("BeverageStore", {
 
   getters: {
     baseColor: (state) => state.currentBase?.color ?? "#FFFFFF",
+    // creamerColor: (state) => {const creamer = state.currentCreamer;
+    //   if (!creamer || creamer.name === "No Cream") {
+    //     return state.currentBase.color
+    //   } return creamer.color
+    // },
     creamerColor: (state) => state.currentCreamer?.color ?? "#FFFFFF",
     syrupColor: (state) => {const syrup = state.currentSyrup;
       if (!syrup || syrup.name === "No Syrup") {
@@ -63,6 +68,9 @@ export const useBeverageStore = defineStore("BeverageStore", {
       this.currentCreamer = this.creamers.find(c => c.name === bev.creamer) || this.creamers[0];
       this.currentSyrup = this.syrups.find(s => s.name === bev.syrup) || this.syrups[0];
       this.currentTemp = bev.temperature;
+    },
+    clearBeverages() {
+      this.savedBeverages = []
     },
   },
   persist: true,
